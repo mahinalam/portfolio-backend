@@ -7,15 +7,7 @@ import { BlogControllers } from "./blog.controller";
 
 const router = express.Router();
 
-router.post(
-  "/",
-  // auth(UserRole.VENDOR),
-  multerUpload.fields([{ name: "blogImages" }]),
-  // multerUpload.fields([{ name: 'itemImages' }]),
-  validateImageFileRequest(ImageFilesArrayZodSchema),
-  parseBody,
-  BlogControllers.createBlog
-);
+router.post("/", BlogControllers.createBlog);
 
 router.get(
   "/",

@@ -2,10 +2,7 @@ import AppError from "../../errors/AppError";
 import { TImageFiles } from "../../interface/file";
 import { Blog } from "./blog.model";
 
-const createBlogIntoDB = async (payload: any, images: TImageFiles) => {
-  const { blogImages } = images;
-  payload.images = blogImages.map((image) => image.path);
-
+const createBlogIntoDB = async (payload: any) => {
   const result = await Blog.create(payload);
 
   return result;

@@ -3,6 +3,7 @@ import config from "../../config";
 import { User } from "../User/user.model";
 import { TLoginUser } from "./auth.interface";
 import AppError from "../../errors/AppError";
+import { createToken } from "./auth.utils";
 
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
@@ -17,7 +18,18 @@ const loginUser = async (payload: TLoginUser) => {
   if (!(await User.isPasswordMatched(payload?.password, user?.password)))
     throw new AppError(403, "Password do not matched");
 
-  return {};
+  const jwtPayload = {
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string
+  );
+
+  return { accessToken };
 };
 
 // const changePassword = async (

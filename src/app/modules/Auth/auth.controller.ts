@@ -6,13 +6,13 @@ import { AuthServices } from "./auth.service";
 import { Request, Response } from "express";
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
-  await AuthServices.loginUser(req.body);
+  const result = await AuthServices.loginUser(req.body);
 
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: "User is logged in succesfully!",
-    data: {},
+    message: "Logged in succesfully!",
+    data: result,
   });
 });
 

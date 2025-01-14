@@ -7,13 +7,7 @@ import { BlogService } from "./blog.service";
 import { TImageFiles } from "../../interface/file";
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
-  if (!req.files) {
-    throw new AppError(400, "Please upload an image");
-  }
-  const result = await BlogService.createBlogIntoDB(
-    req.body,
-    req.files as TImageFiles
-  );
+  const result = await BlogService.createBlogIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: 200,
